@@ -61,6 +61,14 @@ Tal como lo solicita la cátedra, a continuación se detalla el uso ético y cr�
 | ----- | ----- | ----- | ----- | 
 | \[Ej: Gemini / ChatGPT\] | \[Ej: Explicación de Git y ramas\] | *"Cómo usamos las ramas para dividir el trabajo..."* | Comprendimos el flujo y adaptamos los comandos a nuestro entorno. | 
 | \[...\] | \[...\] | \[...\] | \[...\] | 
+| \[...\] | \[...\] | \[...\] | \[...\] |
+| \[...\] | \[...\] | \[...\] | \[...\] | 
+| \[...\] | \[...\] | \[...\] | \[...\] |
+| \[...\] | \[...\] | \[...\] | \[...\] | 
+| \[...\] | \[...\] | \[...\] | \[...\] |
+| \[...\] | \[...\] | \[...\] | \[...\] | 
+| \[...\] | \[...\] | \[...\] | \[...\] |
+| \[...\] | \[...\] | \[...\] | \[...\] | 
 | \[...\] | \[...\] | \[...\] | \[...\] | 
 
 *Repositorio mantenido para el ciclo lectivo correspondiente.*
