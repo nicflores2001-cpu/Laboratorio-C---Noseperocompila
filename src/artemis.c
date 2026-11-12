@@ -41,3 +41,28 @@ double calcularPeriodoOrbital(double velocidad) {
     
     return periodo;
 }
+double calcularAceleracionCentripeta(void) {
+    double v = calcularVelocidadOrbital();   // reutiliza el punto a)
+    return (v * v) / RADIO_ORBITAL;
+}
+
+double calcularAceleracionGravitatoria(void) {
+    return (G * MASA_TIERRA) / (RADIO_ORBITAL * RADIO_ORBITAL);
+}
+double calcularVelocidadLateral(void) {
+    return ACEL_PULSO * TIEMPO_PULSO;
+}
+
+double calcularDesviacionLateral(void) {
+    return 0.5 * ACEL_PULSO * TIEMPO_PULSO * TIEMPO_PULSO;
+}
+
+double calcularDesviacionAngular(double *grados) {
+    double v = calcularVelocidadOrbital();
+    double rad = atan(calcularVelocidadLateral() / v);
+
+    if (grados != NULL) {
+        *grados = rad * 180.0 / PI;
+    }
+    return rad;
+}

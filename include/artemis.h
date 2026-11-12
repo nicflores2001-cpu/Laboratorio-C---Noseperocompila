@@ -12,13 +12,25 @@
 #define MASA_ORION 33000.0      // Masa total de la nave Orion en kg[cite: 3]
 #define ALTITUD_LEO 192000.0    // Altitud constante sobre la superficie en metros[cite: 3]
 #define RADIO_ORBITAL 6563000.0 // Radio orbital total (Tierra + Altitud) en metros[cite: 3]
+#define ACEL_PULSO   0.50   // m/s^2
+#define TIEMPO_PULSO 10.0   // s
 
-#endif // ARTEMIS_H
 
-// 3. Prototipos de Funciones
+double calcularAceleracionCentripeta(void);
+
+double calcularAceleracionGravitatoria(void);
 
 double calcularVelocidadOrbital();
 
 double calcularPeriodoOrbital(double velocidad);
 
-void demostrarIgualdadFuerzas(); //Muestra por pantalla analiticamente la igualdad de fuerzas
+void demostrarIgualdadFuerzas();
+
+double calcularVelocidadLateral(void);                 // v_perp = a*dt
+double calcularDesviacionLateral(void);                // d = 1/2 a dt^2
+double calcularDesviacionAngular(double *grados);      // devuelve rad, grados por puntero
+
+#endif
+
+// 3. Prototipos de Funciones
+

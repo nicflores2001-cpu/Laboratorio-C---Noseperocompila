@@ -18,6 +18,19 @@ int main() {
     printf("\n--- RESULTADOS SITUACION 2 ---\n");
     printf("Velocidad Orbital: %.2f m/s\n", velocidad);
     printf("------------------------------\n\n");
+    double ac = calcularAceleracionCentripeta();
+    double ag = calcularAceleracionGravitatoria();
 
+    printf("c) Aceleracion centripeta: %.4f m/s^2\n", ac);
+    printf("   Verificacion G*M/r^2:   %.4f m/s^2\n", ag);
+    
+    double grados;
+    double vlat = calcularVelocidadLateral();
+    double desv = calcularDesviacionLateral();
+    double rad  = calcularDesviacionAngular(&grados);
+
+    printf("d) Velocidad lateral:   %.2f m/s\n", vlat);
+    printf("   Desviacion lateral:  %.2f m\n", desv);
+    printf("   Giro de la velocidad: %.6f rad (%.4f grados)\n", rad, grados);
     return 0;
 }
