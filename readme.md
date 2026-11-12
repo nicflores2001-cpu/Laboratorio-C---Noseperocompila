@@ -1,74 +1,93 @@
-#  Simulador de Misiones Artemis
+#  Simulador Misión Artemis — Situación 2 (Órbita LEO)
 
-**Trabajo Final Integrador**  
-**Cátedra:** Algoritmos y Estructuras de Datos  
-**Institución:** Universidad Tecnológica Nacional (UTN) - Facultad Regional Resistencia  
+Trabajo Práctico Final de Laboratorio desarrollado en lenguaje **C** para la cátedra **Algoritmos y Estructuras de Datos** — **Universidad Tecnológica Nacional, Facultad Regional Resistencia (UTN FRRe)**.
 
-Este proyecto es un simulador interactivo por consola desarrollado íntegramente en lenguaje C, diseñado para modelar los desafíos físicos y operativos de las misiones aeroespaciales del programa Artemis.
+---
 
-##  Integrantes y Comisión
+##  Descripción del Proyecto
 
-* **Comisión:** [Número/Nombre de la comisión]
-* **Equipo:**
-  * Flores Nicolas - Legajo: 27180 - 
-  * Medina Agustin - Legajo: 26680 - 
-  * Garcia Franceschini, Yael Ailen - Legajo: 27429 - 
-  * Aguirre Hernan Ezequiel - Legajo: 27179 - 
+El programa modela y analiza la dinámica orbital de la nave espacial **Orion** en una **Órbita Terrestre Baja (LEO)** bajo las leyes del Movimiento Circular Uniforme (MCU) y la Gravitación Universal, permitiendo tanto simular los parámetros oficiales de la misión como ingresar escenarios personalizados con validación robusta de entrada.
 
-**Situación - Problema 2: Inserción y Estabilidad en Órbita Terrestre Baja - LEO (MCU y Gravitación)**
+### Problemas físicos resueltos
+* **Punto a) Equilibrio orbital y velocidad:** Demostración analítica de la igualdad entre la fuerza de atracción gravitatoria y la fuerza centrípeta ($F_g = F_c$), verificación numérica de ambas fuerzas y cálculo del módulo de la velocidad orbital ($v$).
+* **Punto b) Período orbital:** Cálculo del tiempo requerido para completar una órbita alrededor de la Tierra ($T$) expresado en segundos y minutos.
+* **Punto c) Aceleración centrípeta:** Cálculo y contraste entre la aceleración centrípeta ($a_c = v^2 / r$) y la aceleración gravitatoria local ($g = G \cdot M_T / r^2$).
+* **Punto d) Maniobra de desvío lateral:** Descripción de la trayectoria resultante tras un impulso perpendicular y cálculo de la velocidad lateral adquirida, el desplazamiento lateral instantáneo y la desviación angular (en radianes y grados).
 
-* **Descripción:** Tras apagar sus motores de ascenso, la nave Orion es inyectada en una órbita terrestre baja (LEO) de estacionamiento, donde realiza un Movimiento Circular Uniforme (MCU) a una altitud constante de 192,0 km (192.000,0 m) sobre la superficie terrestre. El simulador calcula y analiza parámetros orbitales como la velocidad, la aceleración centrípeta y el período orbital, considerando constantes físicas como la masa de la Tierra y la constante de gravitación universal.
+---
 
-* **Reglas:** El usuario interactúa mediante un menú para ingresar variaciones en los parámetros físicos y el sistema simula y reporta los resultados, respetando estrictas validaciones de datos para evitar cuelgues o ingresos erróneos. El programa responde analíticamente a las consignas físicas, evaluando la estabilidad de la órbita ante encendidos de propulsores auxiliares.
+##  Constantes y Parámetros de Referencia
 
-##  Detalle de Funcionamiento y Arquitectura
+| Parámetro | Símbolo | Valor por defecto | Rango personalizado permitido |
+| :--- | :---: | :---: | :---: |
+| Constante gravitacional | $G$ | $6.674 \times 10^{-11} \text{ N}\cdot\text{m}^2/\text{kg}^2$ | Fija |
+| Masa de la Tierra | $M_T$ | $5.972 \times 10^{24} \text{ kg}$ | Fija |
+| Radio terrestre | $R_T$ | $6\,371\,000.0 \text{ m}$ | Fija |
+| Altitud orbital LEO | $h$ | $192\,000.0 \text{ m}$ ($192 \text{ km}$) | $160\,000.0 \text{ m}$ a $2\,000\,000.0 \text{ m}$ |
+| Masa de la nave | $m$ | $33\,000.0 \text{ kg}$ | $1\,000.0 \text{ kg}$ a $1\,000\,000.0 \text{ kg}$ |
+| Aceleración del pulso | $a$ | $0.50 \text{ m/s}^2$ | $0.01 \text{ m/s}^2$ a $10.0 \text{ m/s}^2$ |
+| Duración del pulso | $\Delta t$ | $10.0 \text{ s}$ | $0.1 \text{ s}$ a $600.0 \text{ s}$ |
 
-El proyecto cumple con un diseño modular, dividiendo responsabilidades en distintos archivos:
+---
 
-* `main.c`: Maneja el menú principal de navegación.
+##  Estructura del Repositorio
 
-* `src/artemis.c` y `include/artemis.h`: Contienen la lógica de negocio, cálculos físicos y estructuras de la simulación.
-
-* `src/validaciones.c` y `include/validaciones.h`: Módulos de seguridad para el ingreso exhaustivo de datos, evitando que el programa finalice por errores del usuario.
-
-##  Instrucciones de Compilación y Ejecución
-
-Para compilar el proyecto, asegúrese de tener instalado el compilador **GCC**. Abra una terminal en la raíz del repositorio y ejecute el siguiente comando para enlazar el `main` junto con los módulos:
-
-```bash
-gcc main.c src/artemis.c src/validaciones.c -o simulador
+```text
+Laboratorio-C---Noseperocompila/
+├── include/
+│   ├── artemis.h          # Constantes, struct DatosOrbita y prototipos físicos/presentación
+│   └── validaciones.h     # Prototipos de lectura segura por consola
+├── src/
+│   ├── artemis.c          # Implementación de fórmulas físicas, carga y reportes
+│   └── validaciones.c     # Manejo seguro de buffer (fgets, strtod, strtol)
+├── main.c                 # Menú principal interactivo y control de flujo
+└── README.md              # Documentación del proyecto
 ```
 
-Una vez compilado exitosamente, ejecute el programa con:
+---
 
-**En Windows:**
+##  Compilación y Ejecución
+
+### Requisitos
+* Compilador **GCC** (en Windows mediante MSYS2 UCRT64 o MinGW; en Linux/macOS nativo).
+* Librería matemática estándar de C (`-lm`).
+
+### Compilar desde la raíz del proyecto
+Utilizá la bandera `-Iinclude` para enlazar la carpeta de archivos de cabecera y `-lm` para vincular la librería `<math.h>`:
 
 ```bash
-.\simulador.exe
+gcc -Iinclude main.c src/artemis.c src/validaciones.c -o simulador -lm
 ```
 
-**En Linux / macOS:**
+### Ejecutar el simulador
+* **En Windows (PowerShell / CMD):**
+  ```powershell
+  .\simulador.exe
+  ```
+* **En Linux / macOS:**
+  ```bash
+  ./simulador
+  ```
 
-```bash
-./simulador
-```
+---
 
-##  Registro del Uso de Inteligencia Artificial
+##  Opciones del Menú Interactivo
 
-Tal como lo solicita la cátedra, a continuación se detalla el uso ético y crítico de herramientas de IA generativa como apoyo durante el desarrollo:
+Al iniciar el programa, se presenta un menú cíclico protegido contra entradas inválidas:
 
-| Herramienta Utilizada | Tarea Específica | Prompt / Consulta Realizada | Validación y Adaptación del Código | 
-| ----- | ----- | ----- | ----- | 
-| \[Ej: Gemini / ChatGPT\] | \[Ej: Explicación de Git y ramas\] | *"Cómo usamos las ramas para dividir el trabajo..."* | Comprendimos el flujo y adaptamos los comandos a nuestro entorno. | 
-| \[...\] | \[...\] | \[...\] | \[...\] | 
-| \[...\] | \[...\] | \[...\] | \[...\] |
-| \[...\] | \[...\] | \[...\] | \[...\] | 
-| \[...\] | \[...\] | \[...\] | \[...\] |
-| \[...\] | \[...\] | \[...\] | \[...\] | 
-| \[...\] | \[...\] | \[...\] | \[...\] |
-| \[...\] | \[...\] | \[...\] | \[...\] | 
-| \[...\] | \[...\] | \[...\] | \[...\] |
-| \[...\] | \[...\] | \[...\] | \[...\] | 
-| \[...\] | \[...\] | \[...\] | \[...\] | 
+1. **Cargar / modificar datos personalizados:** Permite ingresar altitud, masa, aceleración y duración del pulso validando rangos físicos y aceptando tanto punto como coma decimal.
+2. **Cargar datos por defecto (Misión Orion LEO):** Precarga automáticamente los valores oficiales del enunciado ($h = 192\,000\text{ m}$, $m = 33\,000\text{ kg}$, $a = 0.50\text{ m/s}^2$, $\Delta t = 10\text{ s}$).
+3. **Velocidad orbital (Punto a):** Muestra la demostración analítica, verifica $F_g = F_c$ y calcula $v$.
+4. **Período orbital (Punto b):** Calcula el tiempo de vuelta completa en segundos y minutos.
+5. **Aceleración centrípeta (Punto c):** Calcula y contrasta $a_c$ y $g$.
+6. **Pulso lateral (Punto d):** Describe la nueva trayectoria y calcula velocidad lateral, desviación y ángulo de giro.
+7. **Ver todos los resultados:** Ejecuta de forma secuencial el reporte completo (Puntos a, b, c y d).
+0. **Salir:** Finaliza la ejecución del simulador.
 
-*Repositorio mantenido para el ciclo lectivo correspondiente.*
+---
+
+##  Arquitectura y Buenas Prácticas Implementadas
+
+* **Modularización estricta:** Separación clara entre interfaz (`.h`), lógica de dominio (`artemis.c`), utilidades de entrada (`validaciones.c`) y capa de control (`main.c`).
+* **Lectura segura sin desbordamiento de buffer:** Reemplazo de `scanf` por lectura de línea completa (`fgets`) y conversión controlada (`strtod` / `strtol`), evitando bucles infinitos ante caracteres no numéricos.
+* **Programación defensiva:** Uso de bandera de estado (`cargado`) en `DatosOrbita` para impedir cálculos sin inicialización previa y uso de calificadores `const` en funciones de solo lectura.
