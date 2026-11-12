@@ -30,8 +30,8 @@ void demostrarIgualdadFuerzas() {
 }
 
 
-
-// Calculamos el periodo orbital con la velocidad orbital que ya calculamos
+//Punto b - 
+// Calculamos el periodo orbital con la velocidad orbital que ya calculamos 
 double calcularPeriodoOrbital(double velocidad) {
     // Calculamos el perímetro de la órbita (2 * PI * radio)
     double perimetro = 2 * PI * RADIO_ORBITAL;
@@ -41,6 +41,8 @@ double calcularPeriodoOrbital(double velocidad) {
     
     return periodo;
 }
+
+//Punto c - Calculamos el modulo de aceleracion centripeta
 double calcularAceleracionCentripeta(void) {
     double v = calcularVelocidadOrbital();   // reutiliza el punto a)
     return (v * v) / RADIO_ORBITAL;
@@ -49,6 +51,8 @@ double calcularAceleracionCentripeta(void) {
 double calcularAceleracionGravitatoria(void) {
     return (G * MASA_TIERRA) / (RADIO_ORBITAL * RADIO_ORBITAL);
 }
+
+//Punto d- Describir la trayectoria resultante y calcular la desviación lateral instantánea.
 double calcularVelocidadLateral(void) {
     return ACEL_PULSO * TIEMPO_PULSO;
 }

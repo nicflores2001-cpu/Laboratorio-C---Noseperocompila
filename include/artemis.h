@@ -16,21 +16,24 @@
 #define TIEMPO_PULSO 10.0   // s
 
 
-double calcularAceleracionCentripeta(void);
-
-double calcularAceleracionGravitatoria(void);
-
+// 3. Prototipos de Funciones
+//Punto a-
 double calcularVelocidadOrbital();
-
-double calcularPeriodoOrbital(double velocidad);
-
 void demostrarIgualdadFuerzas();
 
+//Punto b-
+double calcularPeriodoOrbital(double velocidad);
+
+//Punto c-
+double calcularAceleracionCentripeta(void);
+double calcularAceleracionGravitatoria(void);
+
+//Punto d-
 double calcularVelocidadLateral(void);                 // v_perp = a*dt
 double calcularDesviacionLateral(void);                // d = 1/2 a dt^2
 double calcularDesviacionAngular(double *grados);      // devuelve rad, grados por puntero
 
 #endif
 
-// 3. Prototipos de Funciones
+
 
