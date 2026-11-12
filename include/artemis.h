@@ -1,39 +1,56 @@
-// Definimos las variables y constantes para el punto a)
 #ifndef ARTEMIS_H
 #define ARTEMIS_H
 
-// Constantes físicas universales y del planeta Tierra
-#define G 6.674e-11             // Constante de gravitación universal en N*m^2/kg^2[cite: 3]
-#define MASA_TIERRA 5.972e24    // Masa de la Tierra en kg[cite: 3]
-#define RADIO_TIERRA 6371000.0  // Radio terrestre medio en metros[cite: 3]
-#define PI 3.14159265359
+// Constantes físicas
+#define G            6.674e-11
+#define MASA_TIERRA  5.972e24
+#define RADIO_TIERRA 6371000.0
+#define PI           3.14159265358979323846
 
-// Constantes de la misión Orion en órbita LEO
-#define MASA_ORION 33000.0      // Masa total de la nave Orion en kg[cite: 3]
-#define ALTITUD_LEO 192000.0    // Altitud constante sobre la superficie en metros[cite: 3]
-#define RADIO_ORBITAL 6563000.0 // Radio orbital total (Tierra + Altitud) en metros[cite: 3]
-#define ACEL_PULSO   0.50   // m/s^2
-#define TIEMPO_PULSO 10.0   // s
+// Valores por defecto de la Misión Orion (Situación 2)
+#define ALTITUD_ORION_DEF 192000.0  // m (192 km)
+#define MASA_ORION_DEF    33000.0   // kg
+#define ACEL_PULSO_DEF    0.50      // m/s^2
+#define TIEMPO_PULSO_DEF  10.0      // s
 
 
-// 3. Prototipos de Funciones
-//Punto a-
-double calcularVelocidadOrbital();
-void demostrarIgualdadFuerzas();
+// Datos que carga el usuario
+typedef struct {
+    double altitud;     // m
+    double masaNave;    // kg
+    double aceleracion; // m/s^2 (pulso lateral)
+    double tiempo;      // s     (duración del pulso)
+    int    cargado;     // 0 = todavía no se cargaron datos
+} DatosOrbita;
 
-//Punto b-
-double calcularPeriodoOrbital(double velocidad);
+// Carga de datos con validación y carga por defecto
+void cargarDatos(DatosOrbita *d);
+void cargarDatosPorDefecto(DatosOrbita *d);
 
-//Punto c-
-double calcularAceleracionCentripeta(void);
-double calcularAceleracionGravitatoria(void);
 
-//Punto d-
-double calcularVelocidadLateral(void);                 // v_perp = a*dt
-double calcularDesviacionLateral(void);                // d = 1/2 a dt^2
-double calcularDesviacionAngular(double *grados);      // devuelve rad, grados por puntero
+// Cálculos
+double calcularRadioOrbital(double altitud);
+double calcularVelocidadOrbital(double altitud);                           // a)
+double calcularFuerzaGravitatoria(double altitud, double masa);            // a)
+double calcularFuerzaCentripeta(double altitud, double masa);              // a)
+double calcularPeriodoOrbital(double altitud, double *minutos);            // b)
+double calcularAceleracionCentripeta(double altitud);                      // c)
+double calcularAceleracionGravitatoria(double altitud);                    // c)
+double calcularVelocidadLateral(double aceleracion, double tiempo);        // d)
+double calcularDesviacionLateral(double aceleracion, double tiempo);       // d)
+double calcularDesviacionAngular(double altitud, double aceleracion,
+                                 double tiempo, double *grados);           // d)
 
-#endif
+// Presentación de resultados
+void mostrarPuntoA(const DatosOrbita *d);
+void mostrarPuntoB(const DatosOrbita *d);
+void mostrarPuntoC(const DatosOrbita *d);
+void mostrarPuntoD(const DatosOrbita *d);
+void demostrarIgualdadFuerzas(void);
+
+#endif // ARTEMIS_H
+
+
 
 
 

@@ -1,42 +1,62 @@
 #include <stdio.h>
-#include "include/artemis.h"
+#include "artemis.h"
+#include "validaciones.h"
 
-int main() {
-    demostrarIgualdadFuerzas(); // Tu función de demostración
+static void mostrarMenu(const DatosOrbita *d) {
+    printf("\n=========================================\n");
+    printf("   ARTEMIS - SITUACION 2: ORBITA LEO\n");
+    printf("=========================================\n");
+    if (d->cargado) {
+        printf("Datos: h=%.0f m | m=%.0f kg | a=%.2f m/s^2 | dt=%.1f s\n",
+               d->altitud, d->masaNave, d->aceleracion, d->tiempo);
+    } else {
+        printf("Datos: (sin cargar)\n");
+    }
+    printf("-----------------------------------------\n");
+    printf("1. Cargar / modificar datos personalizados\n");
+    printf("2. Cargar datos por defecto (Mision Orion LEO)\n");
+    printf("3. Velocidad orbital \n");
+    printf("4. Periodo orbital \n");
+    printf("5. Aceleracion centripeta \n");
+    printf("6. Pulso lateral \n");
+    printf("7. Ver todos los resultados\n");
+    printf("0. Salir\n");
+    printf("-----------------------------------------\n");
+}
 
-    printf("Calculando la fisica completa de la mision...\n");
+int main(void) {
+    DatosOrbita datos = {0.0, 0.0, 0.0, 0.0, 0};
+    int opcion;
 
-    // PUNTOS A y B (Tu lógica)
-    double velocidad = calcularVelocidadOrbital();
-    double periodoSeg = calcularPeriodoOrbital(velocidad);
-    double periodoMin = periodoSeg / 60.0;
+    do {
+        mostrarMenu(&datos);
+        opcion = leerEnteroEnRango("Elija una opcion: ", 0, 7);
 
-    // PUNTO C (La lógica de tu compañero)
-    double acelCentripeta = calcularAceleracionCentripeta();
-    double acelGravitatoria = calcularAceleracionGravitatoria();
+        if (opcion >= 3 && opcion <= 7 && !datos.cargado) {
+            printf("\n[Aviso] Primero cargue los datos (opcion 1 o 2).\n");
+            esperarEnter();
+            continue;
+        }
 
-    // PUNTO D (La lógica de tu compañero)
-    double velLateral = calcularVelocidadLateral();
-    double despLateral = calcularDesviacionLateral();
-    
-    // ATENCION ACA: Como usó un puntero, le pasamos la dirección de memoria de la variable con "&"
-    double grados;
-    double rad = calcularDesviacionAngular(&grados);
+        switch (opcion) {
+            case 1: cargarDatos(&datos);           break;
+            case 2: cargarDatosPorDefecto(&datos); break;
+            case 3: mostrarPuntoA(&datos);         break;
+            case 4: mostrarPuntoB(&datos);         break;
+            case 5: mostrarPuntoC(&datos);         break;
+            case 6: mostrarPuntoD(&datos);         break;
+            case 7:
+                mostrarPuntoA(&datos);
+                mostrarPuntoB(&datos);
+                mostrarPuntoC(&datos);
+                mostrarPuntoD(&datos);
+                break;
+            case 0: printf("\nFin del programa. Buen viaje!\n"); break;
+        }
 
-    // IMPRESION DE LA PANTALLA FINAL
-    printf("\n--- RESULTADOS SITUACION 2 (ORBITA LEO) ---\n");
-    printf("a) Velocidad Orbital:       %.2f m/s\n", velocidad);
-    printf("b) Periodo Orbital:         %.2f seg (%.2f min)\n", periodoSeg, periodoMin);
-    
-    printf("\nc) Aceleraciones:\n");
-    printf("   - Centripeta:            %.4f m/s^2\n", acelCentripeta);
-    printf("   - Gravitatoria:          %.4f m/s^2\n", acelGravitatoria);
-    
-    printf("\nd) Pulso de desvio:\n");
-    printf("   - Velocidad lateral:     %.2f m/s\n", velLateral);
-    printf("   - Desplazamiento lateral:%.2f m\n", despLateral);
-    printf("   - Desviacion angular:    %.6f rad (%.4f grados)\n", rad, grados);
-    printf("-------------------------------------------\n");
+        if (opcion != 0) esperarEnter();
+
+    } while (opcion != 0);
 
     return 0;
 }
