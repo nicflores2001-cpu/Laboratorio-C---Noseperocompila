@@ -52,7 +52,10 @@ Laboratorio-C---Noseperocompila/
 * Compilador **GCC** (en Windows mediante MSYS2 UCRT64 o MinGW; en Linux/macOS nativo).
 * Librería matemática estándar de C (`-lm`).
 
-### Compilar desde la raíz del proyecto
+## Compilar automáticamente (Windows)
+Utiliza el script provisto en la raíz del proyecto. Ejecuta el archivo `compilar.bat` para compilar el proyecto.
+
+### Compilar manualmente desde la raíz del proyecto
 Utilizá la bandera `-Iinclude` para enlazar la carpeta de archivos de cabecera y `-lm` para vincular la librería `<math.h>`:
 
 ```bash
