@@ -12,6 +12,7 @@
 #define MASA_ORION_DEF    33000.0   // kg
 #define ACEL_PULSO_DEF    0.50      // m/s^2
 #define TIEMPO_PULSO_DEF  10.0      // s
+#define MAX_HISTORIAL 5
 
 
 // Datos que carga el usuario
@@ -22,6 +23,19 @@ typedef struct {
     double tiempo;      // s     (duración del pulso)
     int    cargado;     // 0 = todavía no se cargaron datos
 } DatosOrbita;
+// Un campo a cargar: mensaje, rango válido y puntero a la variable destino
+typedef struct {
+    const char *mensaje;
+    double min;
+    double max;
+    double *destino;
+} CampoEntrada;
+
+// Arreglo de simulaciones guardadas
+typedef struct {
+    DatosOrbita simulaciones[MAX_HISTORIAL];
+    int cantidad;
+} Historial;
 
 // Carga de datos con validación y carga por defecto
 void cargarDatos(DatosOrbita *d);
@@ -48,6 +62,11 @@ void mostrarPuntoC(const DatosOrbita *d);
 void mostrarPuntoD(const DatosOrbita *d);
 void demostrarIgualdadFuerzas(void);
 
+
+
+void guardarEnHistorial(Historial *h, const DatosOrbita *d);
+void mostrarHistorial(const Historial *h);
+void mostrarTablaAltitudes(void);
 #endif // ARTEMIS_H
 
 

@@ -20,17 +20,20 @@ static void mostrarMenu(const DatosOrbita *d) {
     printf("5. Aceleracion centripeta \n");
     printf("6. Pulso lateral \n");
     printf("7. Ver todos los resultados\n");
+    printf("8. Ver historial de simulaciones\n");
+    printf("9. Comparar orbitas (tabla)\n");
     printf("0. Salir\n");
     printf("-----------------------------------------\n");
 }
 
 int main(void) {
     DatosOrbita datos = {0.0, 0.0, 0.0, 0.0, 0};
+    Historial historial = {{{0}}, 0};      // arreglo inicializado en cero
     int opcion;
 
     do {
         mostrarMenu(&datos);
-        opcion = leerEnteroEnRango("Elija una opcion: ", 0, 7);
+        opcion = leerEnteroEnRango("Elija una opcion: ", 0, 9);
 
         if (opcion >= 3 && opcion <= 7 && !datos.cargado) {
             printf("\n[Aviso] Primero cargue los datos (opcion 1 o 2).\n");
@@ -39,8 +42,12 @@ int main(void) {
         }
 
         switch (opcion) {
-            case 1: cargarDatos(&datos);           break;
-            case 2: cargarDatosPorDefecto(&datos); break;
+            case 1: 
+                cargarDatos(&datos);        
+                guardarEnHistorial(&historial, &datos);   break;
+            case 2: 
+                cargarDatosPorDefecto(&datos); 
+                guardarEnHistorial(&historial, &datos);   break;
             case 3: mostrarPuntoA(&datos);         break;
             case 4: mostrarPuntoB(&datos);         break;
             case 5: mostrarPuntoC(&datos);         break;
@@ -51,6 +58,8 @@ int main(void) {
                 mostrarPuntoC(&datos);
                 mostrarPuntoD(&datos);
                 break;
+            case 8: mostrarHistorial(&historial); break;
+            case 9: mostrarTablaAltitudes();      break;
             case 0: printf("\nFin del programa. Buen viaje!\n"); break;
         }
 
