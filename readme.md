@@ -1,3 +1,8 @@
+integrantes del grupo noseperocompila de la comision c 
+  Aguirre Hernan Ezequiel
+  Flores Nicolas 
+  Garcia Franceschini Yael Ailen
+  Medina Agustín Fabian
 #  Simulador Misión Artemis — Situación 2 (Órbita LEO)
 
 Trabajo Práctico Final de Laboratorio desarrollado en lenguaje **C** para la cátedra **Algoritmos y Estructuras de Datos** — **Universidad Tecnológica Nacional, Facultad Regional Resistencia (UTN FRRe)**.
